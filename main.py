@@ -1,8 +1,8 @@
-import ollama
-from langchain_core.messages import HumanMessage, AIMessage
-from langchain_core.chat_history import InMemoryChatMessageHistory
+from langchain_ollama import ChatOllama
 
-# how to generate a response from a model
-response = ollama.generate(model='llama3.2:latest', prompt='what is your favorite color?')
+# Initialize the  LangChain wrapper for your local model
+model = ChatOllama(model="llama3.2:latest", temperature=0.7)
 
-print(response['response'])
+# 2. Send the prompt and print the response text
+response = model.invoke("Your prompt goes here")
+print(response.content)
