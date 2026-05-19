@@ -4,6 +4,8 @@ from langchain_core.chat_history import InMemoryChatMessageHistory
 
 # Initialize the  LangChain wrapper for your local model
 model = ChatOllama(model="qwen2.5:3b", temperature=0.0)
+
+# initializing the history of messages
 history = InMemoryChatMessageHistory()
 
 # 2. Send the prompt and print the response text
@@ -11,7 +13,12 @@ response = model.invoke("what is capital of england")
 
 print("Hi there! I am a local model running on your machine. How can I assist you today?")
 
-while True:
+def test_Function():
+    response = model.invoke("what is biryani?")
+    print(response.content)
+
+def main_Function():
+    while True:
          
          user_input = input("User: ")
 
@@ -28,3 +35,7 @@ while True:
          history.add_message(AIMessage(content=response.content))
 
          print(response.content)
+
+
+if __name__ == "__main__":
+    main_Function()
