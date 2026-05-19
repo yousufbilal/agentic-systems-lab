@@ -1,6 +1,7 @@
 from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.chat_history import InMemoryChatMessageHistory
+import time
 
 # Initialize the  LangChain wrapper for your local model
 model = ChatOllama(model="qwen2.5:3b", temperature=0.0)
