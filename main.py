@@ -28,7 +28,7 @@ def main_Function():
          #adding user input to the history of messages
          history.add_message(HumanMessage(content=user_input))
 
-         #sending the history of messages to the model 
+        #Model reads the entire chat history to generate a reply 
          response = model.invoke(history.messages)
 
          #adding the response from the model to the history of messages
