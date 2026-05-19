@@ -9,6 +9,8 @@ history = InMemoryChatMessageHistory()
 # 2. Send the prompt and print the response text
 response = model.invoke("what is capital of england")
 
+print("Hi there! I am a local model running on your machine. How can I assist you today?")
+
 while True:
          
          user_input = input("User: ")
