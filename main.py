@@ -4,19 +4,22 @@ from langchain_core.chat_history import InMemoryChatMessageHistory
 import time
 
 # Initialize the  LangChain wrapper for your local model
-model = ChatOllama(model="qwen2.5:3b", temperature=0.0)
+# model = ChatOllama(model="qwen2.5:3b", temperature=0.0)
+
+# 1. Initialize our two distinct agents
+agent_a = ChatOllama(model="qwen2.5:3b", temperature=0.7)
+agent_b = ChatOllama(model="qwen2.5:3b", temperature=0.7)
 
 # initializing the history of messages
-history = InMemoryChatMessageHistory()
+history_a = InMemoryChatMessageHistory()
+history_b = InMemoryChatMessageHistory()
 
-# 2. Send the prompt and print the response text
-response = model.invoke("what is capital of england")
+# 3. The Starting Trigger (The topic they will discuss)
+starting_topic = "talk "
+print(f"Starting Prompt: {starting_topic}\n")
 
-print("Hi there! I am a local model running on your machine. How can I assist you today?")
+current_message = starting_topic
 
-def test_Function():
-    response = model.invoke("what is biryani?")
-    print(response.content)
 
 def main_Function():
     while True:
@@ -27,13 +30,17 @@ def main_Function():
              break
          
          #adding user input to the history of messages
-         history.add_message(HumanMessage(content=user_input))
+         history_a.add_message(HumanMessage(content=user_input))
+         response = agent_a.invoke(history_a.messages)
+         history_a.add_message(AIMessage(content=response.content))
 
-        #Model reads the entire chat history to generate a reply 
-         response = model.invoke(history.messages)
+         print(f"Agent A: {response.content}\n")
+         print("-" * 50)
+         time.sleep(2) # Pause for 2 seconds so you can read it in real-time
 
-         #adding the response from the model to the history of messages
-         history.add_message(AIMessage(content=response.content))
+         history_b.add_message(HumanMessage(content=response.content))
+         response = agent_b.invoke(history_b.messages)
+         history_b.add_message(AIMessage(content=response.content))
 
          print(response.content)
 
